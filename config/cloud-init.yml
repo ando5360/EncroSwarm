@@ -1,0 +1,69 @@
+#cloud-config
+package_upgrade: true
+network:
+  version: 2
+  renderer: networkd
+  ethernets:
+    ens3:
+      addresses:
+        - <CHANGE-ME>
+      nameservers:
+        search:
+          - "testme.dns"
+        addresses:
+          - 10.10.10.253pyenv
+          
+          - 8.8.8.8
+  tunnels:
+    wg0:
+      mode: wireguard
+      port: 51820
+      key: <host-pub-key>
+      addresses:
+        - 10.0.2.2/24
+      peers:
+        - allowed-ips: [172.16.0.0/24]
+          endpoint: "<peers-vpc-ip>:51820 ? peering a vpc == true : <external-ip>:51820"
+          keys:
+            public: <peers-pub-key>
+packages:
+  - git
+  - nginx
+  - git
+  - build-essential
+  - libpcap-dev
+  - libpcre3-dev
+  - libnet1-dev
+  - zlib1g-dev
+  - luajit
+  - hwloc
+  - libdnet-dev
+  - libdumbnet-dev
+  - bison
+  - flex
+  - liblzma-dev
+  - openssl
+  - libssl-dev
+  - pkg-config
+  - libhwloc-dev
+  - cmake
+  - cpputest
+  - libsqlite3-dev
+  - uuid-dev
+  - libcmocka-dev
+  - libnetfilter-queue-dev
+  - libmnl-dev
+  - autotools-dev
+  - libluajit-5.1-dev
+  - libunwind-dev
+  - libfl-dev
+users:
+  - name: demo
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    groups: users, admin
+    home: /home/
+    shell: /bin/bash
+    ssh-authorized-keys:
+      - ssh-rsa AAAAB3NzaC1yc...
+runcmd:
+  - echo "Hello, World!" > /home/demo/hello.txt

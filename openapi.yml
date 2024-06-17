@@ -1,0 +1,33 @@
+---
+server:
+  type: object
+  properties:
+    url:
+      type: string
+    keys:
+      type: string
+      - public:
+          type: string
+      - private:
+          type: string
+          
+clients:
+  type: array
+  items:
+    properties:
+      type: object
+
+      properties:
+        name: 
+          type: string
+
+        keys:
+          type: object
+          properties:
+            - public:
+              type: string
+            - private:
+              type: string
+            - shared:
+              type: string
+

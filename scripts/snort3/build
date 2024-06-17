@@ -1,0 +1,14 @@
+
+cd $DLBASE/libdaq
+./configure --prefix=/usr/local/lib/daq_s3
+sudo make install -j $(nproc)
+echo "/usr/local/lib/daq_s3" > /etc/ld.so.conf.d/libdaq3.conf
+
+mkdir /opt/snort3
+export SNORTPATH=/opt/snort3
+cd $DLBASE/snort3
+./configure_cmake.sh
+cd build
+make -j $(nproc)
+sudo make install
+alias snort='$SNORTPATH/bin/snort --daq-dir /usr/local/lib/daq_s3/lib/daq'

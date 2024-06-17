@@ -1,0 +1,33 @@
+ssl:
+  trust-store: classpath:keystore.jks
+  trust-store-password: changeit
+
+peers:
+  ###############################################
+  #################  Vault Nodes  ###############
+  ###############################################
+  - vault:
+      hostname: 35.197.222.205
+      provider: google
+      service-agent: java-service-agent-1
+  - vault:
+      hostname: 191.235.113.248
+      provider: azure
+      service-agent: java-service-agent-2
+  - vault:
+      hostname: 127.0.0.1
+      provider: local
+  ###############################################
+  ########## Key Management Servers  ############
+  ###############################################
+  - kms:
+      endpoint:
+      provider: google
+  - kms:
+      endpoint:
+      provider: azure
+  ###############################################
+  ################ Data Servers #################
+  ###############################################
+  - media-server:
+      hostname: 34.89.116.179
